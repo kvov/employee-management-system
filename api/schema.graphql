@@ -1,0 +1,74 @@
+scalar Date
+
+enum EmployeeType {
+    FullTime,
+    PartTime,
+    Contract,
+    Seasonal,
+    None
+}
+
+enum Title {
+    Employee,
+    Manager,
+    Director,
+    VP,
+    None
+}
+
+enum Department {
+    IT,
+    Marketing,
+    HR,
+    Engineering,
+    None
+}
+
+type Employee { 
+    _id:ID!
+    id:Int!
+    firstName:String
+    lastName:String
+    age:Int
+    dateOfJoining:Date 
+    title:Title
+    department:Department 
+    employeeType:EmployeeType
+    currentStatus:Boolean
+}
+
+input EmployeeInput { 
+    firstName:String!
+    lastName:String!
+    age:Int!
+    dateOfJoining:Date! 
+    title:Title!
+    department:Department! 
+    employeeType:EmployeeType
+    currentStatus:Boolean=1
+}
+
+input EmployeeUpdateInput { 
+    firstName:String
+    lastName:String
+    age:Int
+    dateOfJoining:Date 
+    title:Title
+    department:Department 
+    employeeType:EmployeeType
+    currentStatus:Boolean=1
+}
+
+## Top level declations
+type Query {
+about: String!
+employeeList(employeeType:EmployeeType):[Employee!]!
+employee(id:Int!):Employee
+}
+type Mutation {
+setAboutMessage(message: String!): String
+employeeCreate(employee:EmployeeInput!):Employee!
+employeeUpdate(id:Int! employee: EmployeeUpdateInput!):Employee!
+employeeDelete(id:Int!): Boolean!
+}
+
